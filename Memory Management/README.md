@@ -62,9 +62,9 @@ return objc_autoreleaseReturnValue(obj);
 
 objc_retainAutoreleasedReturnValue 主要是针对从autoreleasepool中获取到的对象进行retain
 
-objc_autoreleaseRetrunValue则是将对象加到pool中并返回
+objc_autoreleaseRetrunValue会检查使用该函数的方法或函数调用方的执行命令列表 如果方法或函数的调用方在调用方法后紧接着调用objc_retainAutoreleasedReturnValue  是将对象加到pool中并返回
 
-但两个同时用的话 就会启动优化机制 不把对象加到pool中 而是加到线程局部存储中  可以减少对pool的性能消耗
+objc_autoreleaseRetrunValue会检查使用该函数的方法或函数调用方的执行命令列表 如果方法或函数的调用方在调用方法后紧接着调用objc_retainAutoreleasedReturnValue 则不把对象加到pool中 而是加到线程局部存储中并返回对象  可以减少对pool的性能消耗
 
 ### __weak
 
